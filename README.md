@@ -31,7 +31,14 @@ In de volgende paragrafen zullen de instructies van inembel worden besproken.
 
 Elke instructie van inembel bestaat uit 32 bits. De eerste 8 bits bepalen de soort instructie. Bijvoorbeeld of het een optel, vermenigvuldig of andere instructie is. Instructies kunnen de waardes van de 32 registers aanpassen. Alle registers zijn 32 bits.
 
+## Register instructions / Register instructies
+
+## Stack instructions / Stack instructies
+
+## Program pointer instructions / Programma pointer instructies
+
 ## Arithmetic instructions / Rekenkundige instructies
 
 ## Logic instructions / Logica instructies
 
+## IO instructions / IO instructies
