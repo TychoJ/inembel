@@ -1,6 +1,7 @@
 # inembel
 Inembel stands for instruction set embedded electrical engineering. The goal of this project is to write an instruction set with an assembly compiler. 
 
+---
 Inimbel staat voor instructie set embedded elektrotechniek. Het doel van dit project is het schrijven van een instructie set met een daarbij hoorende assembly compiler.
 
 ## Goals
@@ -11,7 +12,7 @@ The goal of this project is to write a instruction set with interpreter that can
 - Have a semi OS that can run multiple programs at once
 - Have the semi OS control to which program the input of the console goes to
 
-## Doel
+---
 Het doel van dit project is het schrijven van een instructie set met een interpreter die gebruikt kan worden voor het vak embedded van de Hogeschool van Amsterdam. De eisen van het vak embedded zijn:
 - Het hebben van een eigen programmeer taal
 - IO van de raspberry pi hoog en laag kunnen maken
