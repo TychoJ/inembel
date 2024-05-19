@@ -22,6 +22,14 @@ Het doel van dit project is het schrijven van een instructie set met een interpr
 
 
 # Instructions
+In the next couple of subsections the instructions of inembel will be discussed.
+
+Each instruction has 32 bits. The first 8 bits determine the type of instruction. For example if the instruction is an addition, subtraction or something else. Instructions can change the values of the 32 registers that are available. All the 32 registers are 32 bits.
+
+---
+In de volgende paragrafen zullen de instructies van inembel worden besproken.  
+
+Elke instructie van inembel bestaat uit 32 bits. De eerste 8 bits bepalen de soort instructie. Bijvoorbeeld of het een optel, vermenigvuldig of andere instructie is. Instructies kunnen de waardes van de 32 registers aanpassen. Alle registers zijn 32 bits.
 
 ## Arithmetic instructions / Rekenkundige instructies
 
