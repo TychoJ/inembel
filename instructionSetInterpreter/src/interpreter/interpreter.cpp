@@ -132,6 +132,7 @@ void Interpreter::mov(uint8_t regFrom, uint8_t regTo) {
 // Change instruction pointer //
 //----------------------------//
 void Interpreter::jump(void) {
+    this->programPointer = REG0;
     return;
 }
 
