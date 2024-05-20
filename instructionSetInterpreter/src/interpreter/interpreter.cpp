@@ -133,37 +133,37 @@ void Interpreter::jump(void) {
 // Arithmetic functions //
 //----------------------//
 void Interpreter::add(void) {
-    this->registers[RET_REG] = this->registers[REG0] + this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] + this->registers[this->option2];
     return;
 }
 
 void Interpreter::sub(void) {
-    this->registers[RET_REG] = this->registers[REG0] - this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] - this->registers[this->option2];
     return;
 }
 
 void Interpreter::mul(void) {
-    this->registers[RET_REG] = this->registers[REG0] * this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] * this->registers[this->option2];
     return;
 }
 
 void Interpreter::divIns(void) {
-    this->registers[RET_REG] = this->registers[REG0] / this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] / this->registers[this->option2];
     return;
 }
 
 void Interpreter::mod(void) {
-    this->registers[RET_REG] = this->registers[REG0] % this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] % this->registers[this->option2];
     return;
 }
 
 void Interpreter::lshift(void) {
-    this->registers[RET_REG] = this->registers[REG0] << this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] << this->registers[this->option2];
     return;
 }
 
 void Interpreter::rshift(void) {
-    this->registers[RET_REG] = this->registers[REG0] >> this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] >> this->registers[this->option2];
     return;
 }
 
@@ -171,32 +171,32 @@ void Interpreter::rshift(void) {
 // Bit logic functions //
 //---------------------//
 void Interpreter::grt(void) {
-    this->registers[RET_REG] = this->registers[REG0] > this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] > this->registers[this->option2];
     return;
 }
 
 void Interpreter::lst(void) {
-    this->registers[RET_REG] = this->registers[REG0] < this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] < this->registers[this->option2];
     return;
 }
 
 void Interpreter::bitOr(void) {
-    this->registers[RET_REG] = this->registers[REG0] | this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] | this->registers[this->option2];
     return;
 }
 
 void Interpreter::bitAnd(void) {
-    this->registers[RET_REG] = this->registers[REG0] & this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] & this->registers[this->option2];
     return;
 }
 
 void Interpreter::bitXor(void) {
-    this->registers[RET_REG] = this->registers[REG0] ^ this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] ^ this->registers[this->option2];
     return;
 }
 
 void Interpreter::bitNot(void) {
-    this->registers[RET_REG] = ~this->registers[REG0];
+    this->registers[this->option2] = ~this->registers[this->option1];
     return;
 }
 
@@ -204,22 +204,22 @@ void Interpreter::bitNot(void) {
 // Byte logic functions //
 //----------------------//
 void Interpreter::logicAnd(void) {
-    this->registers[RET_REG] = this->registers[REG0] && this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] && this->registers[this->option2];
     return;
 }
 
 void Interpreter::logicOr(void) {
-    this->registers[RET_REG] = this->registers[REG0] || this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] || this->registers[this->option2];
     return;
 }
 
 void Interpreter::logicEq(void) {
-    this->registers[RET_REG] = this->registers[REG0] == this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] == this->registers[this->option2];
     return;
 }
 
 void Interpreter::logicNeq(void) {
-    this->registers[RET_REG] = this->registers[REG0] != this->registers[REG1];
+    this->registers[this->option3] = this->registers[this->option1] != this->registers[this->option2];
     return;
 }
 
@@ -272,5 +272,5 @@ void Interpreter::fromStdi(void) {
 void Interpreter::endProg(void) {
     // TODO implement: free all vars
 
-    exit(this->registers[REG0]);
+    exit(this->registers[this->option1]);
 }
