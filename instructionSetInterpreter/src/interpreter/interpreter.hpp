@@ -54,6 +54,15 @@
 // Program end instruction
 #define END_PROG 27
 
+// Information flags
+#define FLAG        28
+
+#define OVERFLOW    0
+#define UNDERFLOW   1
+#define UNRSTDIN    2
+
+#define NUM_FLAGS   3
+
 
 //-----------//
 // Registers //
@@ -110,6 +119,9 @@ class Interpreter {
         uint8_t option1;
         uint8_t option2;
         uint8_t option3;
+
+        // Information flags
+        uint32_t flags[NUM_FLAGS];
 
         // Stack
         uint32_t stack[STACK_SIZE];

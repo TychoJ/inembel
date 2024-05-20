@@ -7,6 +7,11 @@
 Interpreter::Interpreter(uint32_t *program) {
     this->programStart = program;
     this->instructionPointer = program;
+
+    // Set all flags 0
+    for (uint8_t i = 0; i < NUM_FLAGS; i++) {
+        this->flags[i] = 0;
+    }
 }
 
 Interpreter::~Interpreter() {
