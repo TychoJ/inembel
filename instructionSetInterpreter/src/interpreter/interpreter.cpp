@@ -14,8 +14,13 @@ Interpreter::~Interpreter() {
 
 void* Interpreter::run(void) {
     while(1) {
+        this->opcode  = *this->instructionPointer >> 0  & 0xff;
+        this->option1 = *this->instructionPointer >> 8  & 0xff;
+        this->option2 = *this->instructionPointer >> 16 & 0xff;
+        this->option3 = *this->instructionPointer >> 24 & 0xff;
+
         this->executeInstruction(this->instructionPointer);
-        this->instructionPointer += INSTR_SIZE;
+        this->instructionPointer += 1;
     }
 }
 
@@ -24,16 +29,16 @@ void *Interpreter::runHelper(void *interpreter) {
 }
 
 uint32_t Interpreter::executeInstruction(uint32_t *instruction) {
-    switch (instruction[0])
+    switch (this->opcode)
     {
     case SET:
-        this->set(instruction[1], instruction[2]);
+        this->set(this->option1, this->option2);
         break;
     case END_PROG:
         this->endProg();
         break;
     case MOV:
-        this->mov(instruction[1], instruction[2]);
+        this->mov(this->option1, this->option2);
         break;
 
     case JUMP:

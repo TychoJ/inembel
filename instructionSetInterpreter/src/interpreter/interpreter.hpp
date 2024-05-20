@@ -108,15 +108,15 @@
 #define NUM_REGS    32
 #define RET_REG     0
 
-//---------------------------------//
-// Number of bytes per instruction //
-//---------------------------------//
-#define INSTR_SIZE 4
-
 class Interpreter {
     private:
         uint32_t *programStart;
         uint32_t *instructionPointer;
+
+        uint8_t opcode;
+        uint8_t option1;
+        uint8_t option2;
+        uint8_t option3;
 
         // Initialise the registers
         uint32_t registers[NUM_REGS];
