@@ -17,14 +17,22 @@ int main(void) {
     pthread_t aThread;
     
     // get program
-    uint8_t program[] = {
+    uint8_t code[] = {
         SET, REG0, 10, 0,
         SET, REG1, 5, 0,
-        SUB, 0, 0, 0,
-        END_PROG, 0, 0, 0
+        PUSH, REG1, 0, 0,
+        SET, REG1, 3, 0,
+        MUL, REG0, REG1, REG0,
+        SET, REG1, 0, 0,
+        LOAD, REG1, 0, 0,
+        ADD, REG0, REG1, REG5,
+        POP, 0, 0, 0,
+        END_PROG, REG5, 0, 0
     };
 
-    Interpreter *testInterpreter = new Interpreter(program);
+    uint32_t *program = (uint32_t *)code;
+
+    Interpreter *testInterpreter = new Interpreter((uint32_t*)program);
     // testInterpreter.run()
 
     // pthread_create(&aThread, NULL, printNumbers, NULL);
