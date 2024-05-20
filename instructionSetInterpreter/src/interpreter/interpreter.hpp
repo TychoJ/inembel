@@ -132,9 +132,10 @@ class Interpreter {
         void load(void);
         void store(void);
 
-        // Change instruction pointer
+        // Instruction pointer instructions
         void jump(void);
         void cjump(void);
+        void insp(void);
 
         // Arithmetic functions
         void add(void);
@@ -161,9 +162,6 @@ class Interpreter {
         // IO operation functions
         void write(void);
         void read(void);
-
-        // Store the instruction pointer in a register
-        void insp(void);
 
         // End the program
         void endProg();
