@@ -32,6 +32,34 @@ In de volgende paragrafen zullen de instructies van inembel worden besproken.
 Elke instructie van inembel bestaat uit 32 bits. De eerste 8 bits bepalen de soort instructie. Bijvoorbeeld of het een optel, vermenigvuldig of andere instructie is. Instructies kunnen de waardes van de 32 registers aanpassen. Alle registers zijn 32 bits.
 
 ## Register instructions / Register instructies
+The following instructions allow a value to be placed in an arbitrary register.
+| SET  	| rx 	| valh 	| vall 	|
+|------	|----	|------	|------	|
+- `SET` is the SET instruction.
+- `rx` is the register in which the value is going to be placed. x can be 0 - 31.
+- `valh` are the higher 8 bits of a sixteen bit value.
+- `vall` are the lower 8 bits of a sixteen bit value.
+
+| MOVE 	| rx 	| ry   	| NULL 	|
+|------	|----	|------	|------	|
+- `MOVE` is the MOVE instruction.
+- `rx` is the register from which the value is taken to be stored in ry. x can be 0 - 31
+- `ry` is the register in which the value of rx is stored. y can be 0 - 31
+
+---
+De volgende instructies kunnen gebruikt worden om waardes in een register te laden.
+| SET  	| rx 	| valh 	| vall 	|
+|------	|----	|------	|------	|
+- `SET` is de SET instructie
+- `rx` is het register waarin de waarde wordt opgeslagen. x kan 0 - 31 zijn.
+- `valh` zijn de hoogste 8 bits van een 16  bits getal.
+- `vall` zijn de laagste 8 bits van een 16  bits getal.
+
+| MOVE 	| rx 	| ry   	| NULL 	|
+|------	|----	|------	|------	|
+- `MOVE` is de MOVE instructie.
+- `rx` is het register waarvan de waarde in ry wordt opgeslagen. x kan 0 - 31 zijn.
+- `ry` is het register waarin de waarde van rx wordt opgeslagen. y kan 0 - 31 zijn.
 
 ## Stack instructions / Stack instructies
 
@@ -42,3 +70,5 @@ Elke instructie van inembel bestaat uit 32 bits. De eerste 8 bits bepalen de soo
 ## Logic instructions / Logica instructies
 
 ## IO instructions / IO instructies
+
+## Program end instruction / Programma einde istructie
