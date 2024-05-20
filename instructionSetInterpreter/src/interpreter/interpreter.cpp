@@ -12,6 +12,10 @@ Interpreter::Interpreter(uint32_t *program) {
 Interpreter::~Interpreter() {
 }
 
+void *Interpreter::runHelper(void *interpreter) {
+    return ((Interpreter *)interpreter)->run();
+}
+
 void* Interpreter::run(void) {
     while(1) {
         this->opcode  = *this->instructionPointer >> 0  & 0xff;
@@ -24,18 +28,11 @@ void* Interpreter::run(void) {
     }
 }
 
-void *Interpreter::runHelper(void *interpreter) {
-    return ((Interpreter *)interpreter)->run();
-}
-
-uint32_t Interpreter::executeInstruction(uint32_t *instruction) {
+void Interpreter::executeInstruction(uint32_t *instruction) {
     switch (this->opcode)
     {
     case SET:
         this->set(this->option1, this->option2);
-        break;
-    case END_PROG:
-        this->endProg();
         break;
     case MOV:
         this->mov(this->option1, this->option2);
@@ -95,17 +92,26 @@ uint32_t Interpreter::executeInstruction(uint32_t *instruction) {
     case EQ: 
         this->logicEq();
         break;
-    case NEQ:
-        this->logicNeq();
+    
+    case WRITE:
+        break;
+    case READ:
         break;
     
+    case INSP:
+        break;
+
+    case END_PROG:
+        this->endProg();
+        break;    
 
     default:
         this->registers[REG1] = 0xff;
+        this->option1 = REG1;
         this->endProg();
         break;
     }
-    return 0;
+    return;
 }
 
 //--------------------//
@@ -125,7 +131,13 @@ void Interpreter::mov(uint32_t regFrom, uint32_t regTo) {
 // Change instruction pointer //
 //----------------------------//
 void Interpreter::jump(void) {
-    this->instructionPointer = REG0;
+    *this->instructionPointer = registers[this->option1];
+    return;
+}
+
+void Interpreter::cjump(void) {
+    if (registers[this->option1])
+        *this->instructionPointer = registers[this->option2];
     return;
 }
 
@@ -170,16 +182,6 @@ void Interpreter::rshift(void) {
 //---------------------//
 // Bit logic functions //
 //---------------------//
-void Interpreter::grt(void) {
-    this->registers[this->option3] = this->registers[this->option1] > this->registers[this->option2];
-    return;
-}
-
-void Interpreter::lst(void) {
-    this->registers[this->option3] = this->registers[this->option1] < this->registers[this->option2];
-    return;
-}
-
 void Interpreter::bitOr(void) {
     this->registers[this->option3] = this->registers[this->option1] | this->registers[this->option2];
     return;
@@ -203,6 +205,16 @@ void Interpreter::bitNot(void) {
 //----------------------//
 // Byte logic functions //
 //----------------------//
+void Interpreter::grt(void) {
+    this->registers[this->option3] = this->registers[this->option1] > this->registers[this->option2];
+    return;
+}
+
+void Interpreter::lst(void) {
+    this->registers[this->option3] = this->registers[this->option1] < this->registers[this->option2];
+    return;
+}
+
 void Interpreter::logicAnd(void) {
     this->registers[this->option3] = this->registers[this->option1] && this->registers[this->option2];
     return;
@@ -218,51 +230,14 @@ void Interpreter::logicEq(void) {
     return;
 }
 
-void Interpreter::logicNeq(void) {
-    this->registers[this->option3] = this->registers[this->option1] != this->registers[this->option2];
-    return;
-}
-
-//-----------------//
-// Mutex functions //
-//-----------------//
-void Interpreter::getMutex(void) {
-    return;
-}
-
-void Interpreter::freeMutex(void) {
-    return;
-}
-
-void Interpreter::hasMutex(void) {
-    return;
-}
-
 //------------------------//
 // IO operation functions //
 //------------------------//
-void Interpreter::writeIo(void) {
+void Interpreter::write(void) {
     return;
 }
 
-void Interpreter::readIo(void) {
-    return;
-}
-
-void Interpreter::outputIo(void) {
-    return;
-}
-
-void Interpreter::inputIo(void) {
-    return;
-}
-
-
-void Interpreter::toStdo(void) {
-    return;
-}
-
-void Interpreter::fromStdi(void) {
+void Interpreter::read(void) {
     return;
 }
 

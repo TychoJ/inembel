@@ -16,56 +16,43 @@
 #define PUSH    2
 #define POP     3
 #define LOAD    4
-#define SETVAR  5
+#define STORE   5
 
 // Change instruction pointer instruction 
 #define JUMP    6
-#define CJUMP   
+#define CJUMP   7
 
 // Arithmetic instructions
-#define ADD     7
-#define SUB     8
-#define MUL     9
-#define DIV     10
-#define MOD     11
-#define LSHIFT  12
-#define RSHIFT  13
+#define ADD     8
+#define SUB     9
+#define MUL     10
+#define DIV     11
+#define MOD     12
+#define LSHIFT  13
+#define RSHIFT  14
 
 // Bit logic instructions
-#define GRT     14
-#define LST     15
-#define OR      16
-#define AND     17
-#define XOR     18
-#define NOT     21
+#define OR      15
+#define AND     16
+#define XOR     17
+#define NOT     18
 
 // Byte logic instructions
-#define LAND    23
-#define LOR     24
-#define EQ      25
-#define NEQ     26
-
-// Mutex instructions
-#define GET_MUTEX  28
-#define FREE_MUTEX 29
-#define HAS_MUTEX  30
+#define GRT     19
+#define LST     20
+#define LAND    21
+#define LOR     22
+#define EQ      23
 
 // IO instructions
-#define WRITE_IO    31
-#define READ_IO     32
-// stdOut = 0
-// stdIn  = 1
-// 
-// 
+#define WRITE    24
+#define READ     25
 
-#define OUTPUT_IO   33
-#define INPUT_IO    34
-
-#define TO_STDO     35
-#define FROM_STDI   36
+// Store the instruction pointer in a register
+#define INSP     26
 
 // Program end instruction
-#define END_PROG    37
+#define END_PROG 27
 
 
 //-----------//
@@ -121,12 +108,17 @@ class Interpreter {
         // Initialise the registers
         uint32_t registers[NUM_REGS];
 
-                // Register functions
+        // Functions to run a program
+        void* run(void);
+        void executeInstruction(uint32_t *instruction);
+
+        // Register functions
         void set(uint32_t reg, uint32_t value);
         void mov(uint32_t regFrom, uint32_t regTo);
 
         // Change instruction pointer
         void jump(void);
+        void cjump(void);
 
         // Arithmetic functions
         void add(void);
@@ -141,32 +133,21 @@ class Interpreter {
         void bitOr(void);
         void bitAnd(void);
         void bitXor(void);
-        void bitNor(void);
-        void bitNand(void);
         void bitNot(void);
-        void bitXnor(void);
 
         // Byte logic functions
-        void logicAnd(void);
-        void logicOr(void);
         void grt(void);
         void lst(void);
+        void logicAnd(void);
+        void logicOr(void);
         void logicEq(void);
-        void logicNeq(void);
-        void logicNot(void);
-
-        // Mutex functions
-        void getMutex(void);
-        void freeMutex(void);
-        void hasMutex(void);
 
         // IO operation functions
-        void writeIo(void);
-        void readIo(void);
-        void outputIo(void);
-        void inputIo(void);
-        void toStdo(void);
-        void fromStdi(void);
+        void write(void);
+        void read(void);
+
+        // Store the instruction pointer in a register
+        void insp(void);
 
         // End the program
         void endProg();
@@ -175,10 +156,8 @@ class Interpreter {
         Interpreter(uint32_t *program);
         ~Interpreter();
 
-        void* run(void);
+        // Function to be able to start the program in a separate thread
         static void *runHelper(void *interpreter);
-
-        uint32_t executeInstruction(uint32_t *instruction);
 };
 
 
