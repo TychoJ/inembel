@@ -20,6 +20,7 @@
 
 // Change instruction pointer instruction 
 #define JUMP    6
+#define CJUMP   
 
 // Arithmetic instructions
 #define ADD     7
@@ -36,17 +37,13 @@
 #define OR      16
 #define AND     17
 #define XOR     18
-#define NOR     19
-#define NAND    20
 #define NOT     21
-#define XNOR    22
 
 // Byte logic instructions
 #define LAND    23
 #define LOR     24
 #define EQ      25
 #define NEQ     26
-#define LNOT    27
 
 // Mutex instructions
 #define GET_MUTEX  28
@@ -56,6 +53,11 @@
 // IO instructions
 #define WRITE_IO    31
 #define READ_IO     32
+// stdOut = 0
+// stdIn  = 1
+// 
+// 
+
 #define OUTPUT_IO   33
 #define INPUT_IO    34
 

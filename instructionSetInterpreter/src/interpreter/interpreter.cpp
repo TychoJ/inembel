@@ -77,17 +77,8 @@ uint8_t Interpreter::executeInstruction(uint8_t *instruction) {
     case XOR:
         this->bitXor();
         break;
-    case NOR:
-        this->bitNor();
-        break;
-    case NAND:
-        this->bitNand();
-        break;
     case NOT:
         this->bitNot();
-        break;
-    case XNOR:
-        this->bitXnor();
         break;
 
     case LAND:
@@ -101,9 +92,6 @@ uint8_t Interpreter::executeInstruction(uint8_t *instruction) {
         break;
     case NEQ:
         this->logicNeq();
-        break;
-    case LNOT:
-        this->logicNot();
         break;
     
 
@@ -202,23 +190,8 @@ void Interpreter::bitXor(void) {
     return;
 }
 
-void Interpreter::bitNor(void) {
-    this->registers[RET_REG] = ~(this->registers[REG0] | this->registers[REG1]);
-    return;
-}
-
-void Interpreter::bitNand(void) {
-    this->registers[RET_REG] = ~(this->registers[REG0] & this->registers[REG1]);
-    return;
-}
-
 void Interpreter::bitNot(void) {
     this->registers[RET_REG] = ~this->registers[REG0];
-    return;
-}
-
-void Interpreter::bitXnor(void) {
-    this->registers[RET_REG] = ~(this->registers[REG0] ^ this->registers[REG1]);
     return;
 }
 
@@ -242,11 +215,6 @@ void Interpreter::logicEq(void) {
 
 void Interpreter::logicNeq(void) {
     this->registers[RET_REG] = this->registers[REG0] != this->registers[REG1];
-    return;
-}
-
-void Interpreter::logicNot(void) {
-    this->registers[RET_REG] = !this->registers[REG0];
     return;
 }
 
