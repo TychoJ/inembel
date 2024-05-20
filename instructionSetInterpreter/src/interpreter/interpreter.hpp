@@ -115,15 +115,15 @@
 
 class Interpreter {
     private:
-        uint8_t *programStart;
-        uint8_t *programPointer;
+        uint32_t *programStart;
+        uint32_t *programPointer;
 
         // Initialise the registers
-        uint8_t registers[NUM_REGS];
+        uint32_t registers[NUM_REGS];
 
                 // Register functions
-        void set(uint8_t reg, uint8_t value);
-        void mov(uint8_t regFrom, uint8_t regTo);
+        void set(uint32_t reg, uint32_t value);
+        void mov(uint32_t regFrom, uint32_t regTo);
 
         // Change instruction pointer
         void jump(void);
@@ -172,13 +172,13 @@ class Interpreter {
         void endProg();
 
     public:
-        Interpreter(uint8_t *program);
+        Interpreter(uint32_t *program);
         ~Interpreter();
 
         void* run(void);
         static void *runHelper(void *interpreter);
 
-        uint8_t executeInstruction(uint8_t *instruction);
+        uint32_t executeInstruction(uint32_t *instruction);
 };
 
 

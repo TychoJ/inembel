@@ -4,7 +4,7 @@
 #include "interpreter.hpp"
 
 
-Interpreter::Interpreter(uint8_t *program) {
+Interpreter::Interpreter(uint32_t *program) {
     this->programStart = program;
     this->programPointer = program;
 }
@@ -23,7 +23,7 @@ void *Interpreter::runHelper(void *interpreter) {
     return ((Interpreter *)interpreter)->run();
 }
 
-uint8_t Interpreter::executeInstruction(uint8_t *instruction) {
+uint32_t Interpreter::executeInstruction(uint32_t *instruction) {
     switch (instruction[0])
     {
     case SET:
@@ -106,12 +106,12 @@ uint8_t Interpreter::executeInstruction(uint8_t *instruction) {
 //--------------------//
 // Register functions //
 //--------------------//
-void Interpreter::set(uint8_t reg, uint8_t value) {
+void Interpreter::set(uint32_t reg, uint32_t value) {
     this->registers[reg] = value;
     return;
 }
 
-void Interpreter::mov(uint8_t regFrom, uint8_t regTo) {
+void Interpreter::mov(uint32_t regFrom, uint32_t regTo) {
     this->registers[regTo] = this->registers[regFrom];
     return;
 }
