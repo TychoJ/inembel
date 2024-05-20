@@ -45,8 +45,14 @@
 #define EQ      23
 
 // IO instructions
-#define WRITE    24
-#define READ     25
+#define WRITE_IO 24
+#define READ_IO  25
+
+#define STDO_IO  0
+#define STDI_IO  0
+
+#define STDO_BUF_SIZE 1024
+#define STDI_BUF_SIZE 1024
 
 // Store the instruction pointer in a register
 #define INSP     26
@@ -106,6 +112,12 @@
 
 // Number of stack entries 
 #define STACK_SIZE 4096
+
+//---------------//
+// Communication //
+//---------------//
+#define PWRITE 1
+#define PREAD  0
 
 
 class Interpreter {
@@ -172,8 +184,8 @@ class Interpreter {
         void logicEq(void);
 
         // IO operation functions
-        void write(void);
-        void read(void);
+        void writeIo(void);
+        void readIo(void);
 
         // End the program
         void endProg();
@@ -184,6 +196,22 @@ class Interpreter {
 
         // Function to be able to start the program in a separate thread
         static void *runHelper(void *interpreter);
+
+        // Create communication channels
+        int stdoutIo[2];
+        int stdinIo[2];
+
+        uint32_t stdoIO[STDO_BUF_SIZE];
+        uint32_t stdoWI = 0;
+        uint32_t stdoRI = 0;
+
+        uint32_t stdinIO[STDI_BUF_SIZE];
+        uint32_t stdinWI = 0;
+        uint32_t stdinRI = 0;
+
+        uint8_t running = 1;
+
+
 };
 
 

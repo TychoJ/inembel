@@ -1,5 +1,8 @@
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
 
 #include "interpreter.hpp"
 
@@ -12,17 +15,35 @@ Interpreter::Interpreter(uint32_t *program) {
     for (uint8_t i = 0; i < NUM_FLAGS; i++) {
         this->flags[i] = 0;
     }
+
+    // Setup the stdin and stdout communication channels
+    pipe(stdoutIo);
+    pipe(stdinIo);
 }
 
 Interpreter::~Interpreter() {
 }
 
 void *Interpreter::runHelper(void *interpreter) {
+    ((Interpreter *)interpreter)->running = 1;
     return ((Interpreter *)interpreter)->run();
 }
 
 void* Interpreter::run(void) {
+
+    this->running = 1;
+
+    // Close writing of stdIn of the program
+    close(this->stdinIo[PWRITE]);
+
+    // Close reading of stdOut of the program
+    close(this->stdoutIo[PREAD]);
+
     while(1) {
+
+        // Update the UNRSTDIN flag
+
+        // Parse the instruction
         this->opcode  = *this->instructionPointer >> 0  & 0xff;
         this->option1 = *this->instructionPointer >> 8  & 0xff;
         this->option2 = *this->instructionPointer >> 16 & 0xff;
@@ -114,9 +135,11 @@ void Interpreter::executeInstruction(uint32_t *instruction) {
         this->logicEq();
         break;
     
-    case WRITE:
+    case WRITE_IO:
+        this->writeIo();
         break;
-    case READ:
+    case READ_IO:
+        this->readIo();
         break;
     
     case INSP:
@@ -314,11 +337,23 @@ void Interpreter::logicEq(void) {
 //------------------------//
 // IO operation functions //
 //------------------------//
-void Interpreter::write(void) {
+void Interpreter::writeIo(void) {
+    switch (this->option1) {
+        case STDO_IO:
+            // printf("Writing to output: %c\n", this->registers[this->option2]);
+            // write(this->stdoutIo[PWRITE], &this->registers[this->option2], sizeof(this->registers[this->option2]));
+            this->stdoIO[this->stdoWI] = this->registers[this->option2];
+            this->stdoWI++;
+            this->stdoWI %= STDO_BUF_SIZE;
+            break;
+        
+        default:
+            break;
+    }
     return;
 }
 
-void Interpreter::read(void) {
+void Interpreter::readIo(void) {
     return;
 }
 
@@ -326,7 +361,8 @@ void Interpreter::read(void) {
 // End the program //
 //-----------------//
 void Interpreter::endProg(void) {
-    // TODO implement: free all vars
 
-    exit(this->registers[this->option1]);
+    this->running = 0;
+
+    pthread_exit(&this->registers[this->option1]);
 }
