@@ -93,6 +93,16 @@
 #define REG19   19
 #define REG20   20
 #define REG21   21
+#define REG22   22
+#define REG23   23
+#define REG24   24
+#define REG25   25
+#define REG26   26
+#define REG27   27
+#define REG28   28
+#define REG29   29
+#define REG30   30
+#define REG31   31
 
 // Extra register information 
 #define NUM_REGS    22
