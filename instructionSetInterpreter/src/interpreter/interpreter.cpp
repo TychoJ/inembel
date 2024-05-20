@@ -6,7 +6,7 @@
 
 Interpreter::Interpreter(uint32_t *program) {
     this->programStart = program;
-    this->programPointer = program;
+    this->instructionPointer = program;
 }
 
 Interpreter::~Interpreter() {
@@ -14,8 +14,8 @@ Interpreter::~Interpreter() {
 
 void* Interpreter::run(void) {
     while(1) {
-        this->executeInstruction(this->programPointer);
-        this->programPointer += INSTR_SIZE;
+        this->executeInstruction(this->instructionPointer);
+        this->instructionPointer += INSTR_SIZE;
     }
 }
 
@@ -120,7 +120,7 @@ void Interpreter::mov(uint32_t regFrom, uint32_t regTo) {
 // Change instruction pointer //
 //----------------------------//
 void Interpreter::jump(void) {
-    this->programPointer = REG0;
+    this->instructionPointer = REG0;
     return;
 }
 

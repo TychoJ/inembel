@@ -116,7 +116,7 @@
 class Interpreter {
     private:
         uint32_t *programStart;
-        uint32_t *programPointer;
+        uint32_t *instructionPointer;
 
         // Initialise the registers
         uint32_t registers[NUM_REGS];
