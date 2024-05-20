@@ -105,7 +105,7 @@
 #define REG31   31
 
 // Extra register information 
-#define NUM_REGS    22
+#define NUM_REGS    32
 #define RET_REG     0
 
 //---------------------------------//
