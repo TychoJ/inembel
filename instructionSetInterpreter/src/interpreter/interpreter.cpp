@@ -54,6 +54,9 @@ void Interpreter::executeInstruction(uint32_t *instruction) {
     case JUMP:
         this->jump();
         break;
+    case CJUMP:
+        this->cjump();
+        break;
     
     case ADD:
         this->add();
@@ -206,6 +209,11 @@ void Interpreter::jump(void) {
 void Interpreter::cjump(void) {
     if (registers[this->option1])
         *this->instructionPointer = registers[this->option2];
+    return;
+}
+
+void Interpreter::insp(void) {
+    this->registers[this->option1] = *this->instructionPointer;
     return;
 }
 
