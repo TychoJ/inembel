@@ -38,6 +38,19 @@ void Interpreter::executeInstruction(uint32_t *instruction) {
         this->mov(this->option1, this->option2);
         break;
 
+    case PUSH:
+        this->push();
+        break;
+    case POP:
+        this->pop();
+        break;
+    case LOAD:
+        this->load();
+        break;
+    case STORE:
+        this->store();
+        break;
+
     case JUMP:
         this->jump();
         break;
@@ -126,6 +139,61 @@ void Interpreter::mov(uint32_t regFrom, uint32_t regTo) {
     this->registers[regTo] = this->registers[regFrom];
     return;
 }
+
+//-----------------//
+// Stack functions //
+//-----------------//
+void Interpreter::push(void) {
+    if (this->stackPointer == STACK_SIZE) {
+        this->registers[REG1] = 0xfe;
+        this->option1 = REG1;
+        this->endProg();
+    }
+
+    this->stack[stackPointer] = this->registers[this->option1];
+    this->stackPointer++;
+
+    
+
+    return;
+}
+
+void Interpreter::pop(void) {
+    if (this->stackPointer == 0) {
+        this->registers[REG1] = 0xfd;
+        this->option1 = REG1;
+        this->endProg();
+    }
+
+    this->stackPointer--;
+
+    return;
+}
+
+void Interpreter::load(void) {
+    if (this->registers[this->option1] >= this->stackPointer) {
+        this->registers[REG1] = 0xfc;
+        this->option1 = REG1;
+        this->endProg();
+    }
+
+    this->registers[this->option2] = this->stack[this->registers[this->option1]];
+
+    return;
+}
+
+void Interpreter::store(void) {
+    if (this->registers[this->option1] >= this->stackPointer) {
+        this->registers[REG1] = 0xfc;
+        this->option1 = REG1;
+        this->endProg();
+    }
+
+    this->stack[this->registers[this->option1]] = this->registers[this->option2];
+
+    return;
+}
+
 
 //----------------------------//
 // Change instruction pointer //

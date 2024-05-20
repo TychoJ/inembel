@@ -95,15 +95,25 @@
 #define NUM_REGS    32
 #define RET_REG     0
 
+// Number of stack entries 
+#define STACK_SIZE 4096
+
+
 class Interpreter {
     private:
+        // Store program information
         uint32_t *programStart;
         uint32_t *instructionPointer;
 
+        // Store information about an instruction
         uint8_t opcode;
         uint8_t option1;
         uint8_t option2;
         uint8_t option3;
+
+        // Stack
+        uint32_t stack[STACK_SIZE];
+        uint32_t stackPointer = 0;
 
         // Initialise the registers
         uint32_t registers[NUM_REGS];
@@ -115,6 +125,12 @@ class Interpreter {
         // Register functions
         void set(uint32_t reg, uint32_t value);
         void mov(uint32_t regFrom, uint32_t regTo);
+
+        // Stack functions
+        void push(void);
+        void pop(void);
+        void load(void);
+        void store(void);
 
         // Change instruction pointer
         void jump(void);
