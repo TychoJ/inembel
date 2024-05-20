@@ -44,7 +44,7 @@ PROJECTNAME = instructionInterpreter
 EXTFOLDER =
 
 # Compiler flags
-CFLAGS = -Wall -Werror -fsanitize=address
+CFLAGS = -Wall -Werror -fsanitize=address -pthread
 
 # Execute the configurations
 include make.mk
